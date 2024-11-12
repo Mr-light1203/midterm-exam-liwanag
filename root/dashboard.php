@@ -24,7 +24,9 @@
                     <div class="card-body">
                         <h5 class="card-title">Add a Subject</h5>
                         <p class="card-text">This section allows you to add a new subject in the system. Click the button below to proceed with the adding process.</p>
-                        <a href="../subject/add.php" class="btn btn-success">Add Subject</a>
+                        <div class="d-flex justify-content-center">
+                        <a href="../subject/add.php" class="btn btn-primary text-center" style="width: 400px;">Add Subject</a>
+</div>
                     </div>
                 </div>
             </div>
@@ -33,7 +35,10 @@
                     <div class="card-body">
                         <h5 class="card-title">Register a Student</h5>
                         <p class="card-text">This section allows you to register a new student in the system. Click the button below to proceed with the registration process.</p>
-                        <a href="../student/register.php" class="btn btn-info">Register</a>
+                        <div class="d-flex justify-content-center">
+  <a href="../student/register.php" class="btn btn-primary text-center" style="width: 400px;">Register</a>
+</div>
+
                     </div>
                 </div>
             </div>
