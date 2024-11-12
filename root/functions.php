@@ -58,7 +58,12 @@ function validateLoginCredentials($email, $password) {
 function checkLoginCredentials($email, $password, $users) {
     return isset($users[$email]) && $users[$email] === $password;
 }
-
+function guard($redirectPage = 'dashboard.php') {
+    if (empty($_SESSION['emailtxt']) && basename($_SERVER['PHP_SELF']) != $redirectPage) {
+        header("Location: $redirectPage"); 
+        exit;
+    }
+}
 
 
 
