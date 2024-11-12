@@ -132,7 +132,44 @@ function getSelectedStudentData($index) {
     }
     return null;
 }
+function validateSubjectData($subject_data) {
+    $errorArray = [];
 
+    if (empty($subject_data['subject_code'])) {
+        $errorArray['subject_code'] = 'Subject code is required!';
+    }
+
+    if (empty($subject_data['subject_name'])) {
+        $errorArray['subject_name'] = 'Subject name is required!';
+    }
+    return $errorArray;
+}
+function checkDuplicateSubjectData($subject_data) {
+    $errors = [];
+
+    // Check for duplicate subject code or name
+    foreach ($_SESSION['subject_data'] as $existing_subject) {
+        if ($existing_subject['subject_code'] == $subject_data['subject_code']) {
+            $errors[] = "A subject with this code already exists.";
+        }
+        if ($existing_subject['subject_name'] == $subject_data['subject_name']) {
+            $errors[] = "A subject with this name already exists.";
+        }
+    }
+
+    return $errors;
+}
+function getSelectedSubjectIndex($subject_code) {
+    if (!isset($_SESSION['subject_data'])) {
+        return null;
+    }
+    foreach ($_SESSION['subject_data'] as $index => $subject) {
+        if ($subject['subject_code'] === $subject_code) {
+            return $index;
+        }
+    }
+    return null;
+}
 
 
 
