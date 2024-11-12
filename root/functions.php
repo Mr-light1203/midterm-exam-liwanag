@@ -64,9 +64,74 @@ function guard($redirectPage = 'dashboard.php') {
         exit;
     }
 }
+function validateStudentData($student_data) {
+    $errorArray = [];
 
+    if (empty($student_data['ID'])) {
+        $errorArray['ID'] = 'Student ID is required!';
+    }
 
+    if (empty($student_data['first_name'])) {
+        $errorArray['first_name'] = 'First name is required!';
+    }
 
+    if (empty($student_data['last_name'])) {
+        $errorArray['last_name'] = 'Last name is required!';
+    }
+
+    return $errorArray;
+}
+function checkDuplicateStudentData($student_data) {
+    $errors = [];
+
+    // Check for duplicate student ID, first name, or last name
+    foreach ($_SESSION['student_data'] as $existing_student) {
+        if ($existing_student['ID'] == $student_data['ID']) {
+            $errors[] = "A student with this ID already exists.";
+        }
+        
+    }
+
+    return $errors;
+}
+function displayErrors($errors) {
+    if (empty($errors)) {
+        return ''; 
+    }
+
+    $output = '
+    <div class="alert alert-danger alert-dismissible fade show mx-auto my-5" style="margin-bottom: 20px;" role="alert">
+        <strong>System Errors:</strong> Please correct the following errors.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <hr>
+        <ul>';
+
+    foreach ($errors as $error) {
+        $output .= '<li>' . htmlspecialchars($error) . '</li>';
+    }
+    $output .= '</ul></div>';
+
+    return $output;
+}
+function getSelectedStudentIndex($studentID) {
+    if (!isset($_SESSION['student_data'])) {
+        return null;
+    }
+
+    foreach ($_SESSION['student_data'] as $index => $student) {
+        if ($student['ID'] == $studentID) {
+            return $index;
+        }
+    }
+
+    return null;
+}
+function getSelectedStudentData($index) {
+    if (isset($_SESSION['student_data'][$index])) {
+        return $_SESSION['student_data'][$index];
+    }
+    return null;
+}
 
 
 
